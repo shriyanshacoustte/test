@@ -1,5 +1,6 @@
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
+using System;
 
 public static class DatabaseUtil
 {
@@ -8,7 +9,11 @@ public static class DatabaseUtil
         var config = new ConfigurationBuilder()
             .AddJsonFile("appsettings.json")
             .Build();
-        string connString = config.GetConnectionString("AzureSql");
+        string? connString = config.GetConnectionString("AzureSql");
+        if (string.IsNullOrEmpty(connString))
+        {
+            throw new InvalidOperationException("Azure SQL connection string not found in appsettings.json");
+        }
         return new SqlConnection(connString);
     }
 }
