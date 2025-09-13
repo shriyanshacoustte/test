@@ -1,0 +1,5 @@
+{
+  "ConnectionStrings": {
+    "AzureSql": "YOUR_CONNECTION_STRING_HERE"
+  }
+}
